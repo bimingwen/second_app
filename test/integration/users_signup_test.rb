@@ -10,7 +10,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
       post users_path, params: {user: {name: "", email:"user@invalid", password: "foorfds", password_confirmation:"bar"}}
     end
     assert_template 'users/new'
-    assert_select 'form[action="/signup"]'
+
   end
 
   test "valid signup information" do
@@ -22,5 +22,6 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_template 'users/show'
     assert_not flash.empty?
+    assert is_logged_in?
   end
 end
